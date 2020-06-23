@@ -8,7 +8,7 @@ ReasonReact uses functions and [React Hooks](https://reactjs.org/docs/hooks-intr
 [@react.component]
 let make = (~name) => {
   let (count, setCount) = React.useState(() => 0);
-
+  
   <div>
     <p> {React.string(name ++ " clicked " ++ string_of_int(count) ++ " times")} </p>
     <button onClick={_ => setCount(_ => count + 1)}>
@@ -40,6 +40,8 @@ let make = (Props) => {
 ```
 
 It has added a new function with `Props` as a suffix which uses [`[@bs.obj]`](https://bucklescript.github.io/docs/en/object-2#function) to create your props object. This function gets compiled away by BuckleScript and will be replaced by object literals when used.
+
+
 
 ### A note on `children`
 
@@ -159,3 +161,11 @@ module Nested = {
 ```
 
 If you need a dynamic name for higher-order components or you would like to set your own name you can use `React.setDisplayName(make, "NameThatShouldBeInDevTools");`.
+
+## Adding a component to rei file
+[@react.component] can be used to add a component's signature to an interface file
+```reason
+// CounterReducer.rei
+[@react.component]
+let make: (~name: string) => React.element;
+```
